@@ -27,7 +27,7 @@ _MONOCLE_EXTLIB_LIB_INC		= _MONOCLE_EXTLIB_BASE.."/Compiled"
 
 --Preprocessor os specific defines 
 function monocle_os_defines()
-	defines {"MONOCLE_OPENGL","MONOCLE_OPENAL","MONOCLE_AUDIO_OGG"}
+	defines {"MONOCLE_OPENGL","MONOCLE_OPENAL","MONOCLE_AUDIO_OGG","GLEW_STATIC"}
 	if os.is( "windows" ) == true then
 		defines {"MONOCLE_WINDOWS"}
 	elseif os.is( "linux" ) == true then
@@ -78,7 +78,7 @@ function monocle_os_links_base()
 	monocle_extlib("TinyXML")
 	
 	if os.is( "windows" ) == true then
-		links {"Winmm", "glew32s", "opengl32", "glu32", "openal32"}
+		links {"Winmm", "glew32s", "opengl32", "glu32", "openal32","lua"}
 	elseif os.is( "linux" ) == true then
 		links { "X11","GLEW","GL","GLU","openal" }
 	elseif os.is( "macosx" ) == true then
