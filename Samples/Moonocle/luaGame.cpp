@@ -32,7 +32,7 @@ luaL_reg gameSceneFunctions[] =
 	{NULL,NULL}	
 };
 
-static int luaRegisterGameScene(lua_State *L)
+int luaRegisterGameScene(lua_State *L)
 {
 	LuaBinder binder(L);
 	binder.init("GameScene",0,gameSceneFunctions);

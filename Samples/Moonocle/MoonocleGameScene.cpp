@@ -3,9 +3,15 @@
 
 using namespace Monocle;
 
+int luaRegisterGameScene(lua_State *L);
+int luaRegisteEntity(lua_State *L);
+
 static int pmain (lua_State* L)
 {
     luaL_openlibs(L);  
+
+	luaRegisterGameScene(L); 
+	luaRegisteEntity(L);
 
 	lua_pushstring(L, "1.0.3");
 	lua_setglobal(L, "version");
@@ -18,6 +24,8 @@ namespace Moonocle
 {
 	void GameScene::Begin()
 	{
+		Scene::Begin();
+
 		lEnv = LuaEnvironment::getLuaEnv();
 		lEnv->init();
 		lEnv->pushFunction(pmain);
@@ -30,5 +38,6 @@ namespace Moonocle
 
 	void GameScene::Update()
 	{
+		Scene::Update();
 	}
 }
