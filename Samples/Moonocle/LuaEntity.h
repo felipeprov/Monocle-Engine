@@ -11,9 +11,13 @@ namespace Moonocle
 	{
 	protected:
 		string updateScript;
+		map<string, string> scripts;
+		
 
 	public:
+		int luaId;
 		LuaEntity();
+		void addScript(string ev, string name){scripts[ev]=name;}
 		virtual void Update();
 		virtual void Render();
 	};

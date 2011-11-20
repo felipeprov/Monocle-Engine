@@ -20,7 +20,7 @@ public:
 	void pushString(const char* s);
 	const char* checkString(int index);
 
-	void pushUserType(void *udata, const char* tname);
+	int pushUserType(void *udata, const char* tname);
 	void *checkUserType(int index, const char* tname);
 
 	int checktype(void* udata, const char* name);

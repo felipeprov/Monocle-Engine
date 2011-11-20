@@ -1,8 +1,8 @@
 #include "LuaEnvironment.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-
+#include "LuaBinder.h"
+#include "LuaEntity.h"
 namespace Moonocle
 {
 	LuaEnvironment* LuaEnvironment::luaenv = NULL;
@@ -55,5 +55,13 @@ namespace Moonocle
                  lua_tostring(L, -1));
 			 exit(1);
 		}
+	}
+
+	void LuaEnvironment::luaCallback(const char *function, LuaEntity* obj, char *type)
+	{
+		LUA_CALLBACK_BEGIN(L,function);
+		LUA_CALLBACK_PUSH_ENTITY(obj);
+		//com isso podemos pegar referencias para os objetos de interesse
+		LUA_CALLBACK_END(L,0);
 	}
 }

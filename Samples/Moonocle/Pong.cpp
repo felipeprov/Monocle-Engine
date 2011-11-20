@@ -10,7 +10,7 @@ namespace Pong
     AudioAsset *sfxWall=NULL;
 
 	Text::Text(const std::string& text, FontAsset* font)
-		: Entity(), font(font), text(text)
+		: LuaEntity(), font(font), text(text)
 	{
 	}
 
@@ -199,7 +199,7 @@ namespace Pong
 
 		ball = new Ball();
 		ball->position = Vector2(400, 300);
-		Add(ball);
+		//Add(ball);
 
 		paddle1 = new Paddle();
 		paddle1->position = Vector2(100, 300);

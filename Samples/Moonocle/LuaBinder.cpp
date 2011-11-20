@@ -58,11 +58,12 @@ const char* LuaBinder::checkString(int index)
 	return luaL_checkstring(L,index);
 }
 
-void LuaBinder::pushUserType(void *udata, const char* tname)
+int LuaBinder::pushUserType(void *udata, const char* tname)
 {
 	lua_pushlightuserdata(L,udata);
 	lua_rawget(L,LUA_ENVIRONINDEX);
 
+	int reference=0;
 	if( lua_isnil(L,-1))
 	{
 		lua_newtable(L);
@@ -74,6 +75,9 @@ void LuaBinder::pushUserType(void *udata, const char* tname)
 		lua_pushvalue(L,-2);
 		lua_rawset(L,LUA_ENVIRONINDEX);
 	}
+	int id = luaL_ref(L, LUA_REGISTRYINDEX);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, id);
+	return id;
 }
 
 void* LuaBinder::checkUserType(int index, const char* tname)

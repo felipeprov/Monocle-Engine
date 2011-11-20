@@ -1,11 +1,13 @@
 #include <Monocle.h>
 #include <TextureAsset.h>
+#include "LuaEntity.h"
 
 using namespace Monocle;
+using namespace Moonocle;
 
 namespace Pong
 {
-	class Text: public Entity
+	class Text: public LuaEntity
 	{
 	public:
 		Text(const std::string& text, FontAsset* font);

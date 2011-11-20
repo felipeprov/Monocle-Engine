@@ -30,15 +30,15 @@ static int luaTextSetPosition(lua_State *L)
 
 luaL_reg textFunctions[] =
 {
-	{"New", luaTextNew},
-	{"Position", luaTextSetPosition},
+	{"new", luaTextNew},
+	//{"Position", luaTextSetPosition},
 	{NULL,NULL}	
 };
 
-static int luaRegisterText(lua_State *L)
+ int luaRegisterText(lua_State *L)
 {
 	LuaBinder binder(L);
-	binder.init("Text",0,textFunctions);
+	binder.init("Text","Entity",textFunctions);
 
 	return 1;
 }

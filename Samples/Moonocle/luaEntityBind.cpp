@@ -9,7 +9,7 @@ static int luaEntityCreate(lua_State *L)
 	LuaBinder binder(L);
 
 	LuaEntity* entity = new LuaEntity;
-	binder.pushUserType(entity,"Entity");
+	entity->luaId = binder.pushUserType(entity,"Entity");
     
 	return 1; 
 }
@@ -28,6 +28,44 @@ static int luaEntitySetPosition(lua_State *L)
 	return 0;
 }
 
+static int luaEntitySetRotation(lua_State *L)
+{
+	LuaBinder binder(L);
+
+	LuaEntity* entity = (LuaEntity*)binder.checkUserType(1, "Entity");
+
+	double x = binder.checkNumber(2);
+
+	entity->rotation = x;
+
+	return 0;
+}
+
+static int luaEntityGetRotation(lua_State *L)
+{
+	LuaBinder binder(L);
+
+	LuaEntity* entity = (LuaEntity*)binder.checkUserType(1, "Entity");
+	binder.pushNumber(entity->rotation);
+
+	return 1;
+}
+
+static int luaEntityAddScript(lua_State *L)
+{
+	LuaBinder binder(L);
+
+	LuaEntity* entity = (LuaEntity*)binder.checkUserType(1, "Entity");
+
+	std::string a = binder.checkString(2);
+	std::string b = binder.checkString(3);
+
+	entity->addScript(a,b);
+
+	return 0;
+}
+
+
 static int luaEntityGetPosition(lua_State *L)
 {
 	LuaBinder binder(L);
@@ -45,6 +83,9 @@ luaL_reg entityFunctions[] =
 	{"new", luaEntityCreate},
 	{"setPosition", luaEntitySetPosition},
 	{"getPosition", luaEntityGetPosition},
+	{"setRotation",luaEntitySetRotation},
+	{"getRotation",luaEntityGetRotation},
+	{"addScript",luaEntityAddScript},
 	{NULL,NULL}	
 };
 
