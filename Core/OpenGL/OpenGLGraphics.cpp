@@ -246,6 +246,11 @@ namespace Monocle
 		glScalef(scale.x, scale.y, 1.0f);
 	}
 
+	void Graphics::Scale(float x, float y)
+	{
+		glScalef(x, y, 1.0f);
+	}
+
 	void Graphics::MultiplyMatrix(float *m)
 	{
 		glMultMatrixf(m);
@@ -524,6 +529,11 @@ namespace Monocle
 	void Graphics::Vertex(Vector2 vertex)
 	{
 		glVertex2f(vertex.x, vertex.y);
+	}
+
+	void Graphics::Vertex(float x, float y)
+	{
+		glVertex2f(x, y);
 	}
 
 	void Graphics::EndLine()

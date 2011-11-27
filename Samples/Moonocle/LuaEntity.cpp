@@ -30,8 +30,10 @@ namespace Moonocle
 		Graphics::PushMatrix();
 		Graphics::Translate(position);
 		Graphics::Rotate(rotation,0,0,1.0);
-        Graphics::SetColor(Color::white);
+        Graphics::SetColor(Color::blue);
 		Graphics::RenderQuad(25, 100.0f);
 		Graphics::PopMatrix();
+
+		Entity::Render();
 	}
 }

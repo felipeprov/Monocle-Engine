@@ -1,6 +1,8 @@
 #include "MoonocleGameScene.h"
 #include <Monocle.h>
 #include "Pong.h"
+#include "LuaEntity.h"
+#include "BoneRenderEntity.h"
 
 using namespace Monocle;
 int luaRegisterGameScene(lua_State *L);
@@ -33,6 +35,16 @@ namespace Moonocle
 		lEnv->pushFunction(pmain);
 		lEnv->loadFile("../../content/moonocle/scripts/script.lua");
 
+		levelEditor = new LevelEditor;
+
+		Add(levelEditor);
+		Graphics::SetBackgroundColor(Color::blue*0.1f + Color::black*0.9f);
+
+		boneRender = new BoneRender;
+		Add(boneRender);
+		boneRender->Begin();
+		testeEntity = new LuaEntity;
+		Add(testeEntity);
 	}
 
 	void GameScene::End()
@@ -42,5 +54,25 @@ namespace Moonocle
 	void GameScene::Update()
 	{
 		Scene::Update();
+		/*if(Input::IsKeyPressed(KEY_TAB))
+		{
+			isPaused = !isPaused;
+
+			if(isPaused)
+			{
+				levelEditor->Enable();
+			}
+			else
+			{
+				levelEditor->Disable();
+			}
+		}*/
+
+		testeEntity->position.x = boneRender->tmp->xAbs;
+		testeEntity->position.y = boneRender->tmp->yAbs;
+		testeEntity->rotation = boneRender->tmp->angleAbs;
+		boneRender->tmp->angle += 1;
+		boneRender->rotation += 0.01;
+		boneRender->root->length += 3*sin(2*3.14/360*boneRender->tmp->angle);
 	}
 }

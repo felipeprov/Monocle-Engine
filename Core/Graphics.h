@@ -93,6 +93,9 @@ namespace Monocle
 		//! Scales the renderer the given amount.  Even scale factors will provide uniform scaling,
 		//! while uneven scale will stretch renders on an axis.
 		static void Scale(const Vector2 &pos);
+		//! Scales the renderer the given amount.  Even scale factors will provide uniform scaling,
+		//! while uneven scale will stretch renders on an axis.
+		static void Scale(float x, float y);
 		//! Rotates the renderer on the three axes.
 		//! \param r [in] The angle of rotation in degrees
 		//! \param ax [in] The rotation factor for the x axis (from 0 to 1, with 1 being a rotation of r degrees and 0 being a rotation of 0)
@@ -193,6 +196,7 @@ namespace Monocle
 		static void BeginLine();
 		static void BeginLineStrip();
 		static void Vertex(Vector2 vertex);
+		static void Vertex(float x, float y);
 		static void EndLine();
 		
 		//! \brief Outputs the contents of the screen to an image file
