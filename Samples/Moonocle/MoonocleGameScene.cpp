@@ -3,6 +3,7 @@
 #include "Pong.h"
 #include "LuaEntity.h"
 #include "BoneRenderEntity.h"
+#include "GwenEntity.h"
 
 using namespace Monocle;
 int luaRegisterGameScene(lua_State *L);
@@ -45,6 +46,8 @@ namespace Moonocle
 		boneRender->Begin();
 		testeEntity = new LuaEntity;
 		Add(testeEntity);
+
+		Add(new GweenEntity);
 	}
 
 	void GameScene::End()
@@ -73,6 +76,6 @@ namespace Moonocle
 		testeEntity->rotation = boneRender->tmp->angleAbs;
 		boneRender->tmp->angle += 1;
 		boneRender->rotation += 0.01;
-		boneRender->root->length += 3*sin(2*3.14/360*boneRender->tmp->angle);
+		//boneRender->root->length += 3*sin(2*3.14/360*boneRender->tmp->angle);
 	}
 }

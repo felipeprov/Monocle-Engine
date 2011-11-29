@@ -663,6 +663,22 @@ namespace Monocle
         
         Debug::Log("GL ERROR: " + std::string((char*)gluErrorString(err)));
     }
+
+	void Graphics::BeginScissor( Monocle::Rect scissorRect )
+	{
+		GLint view[4];
+		glGetIntegerv(GL_VIEWPORT, &view[0]);
+		glEnable( GL_SCISSOR_TEST );
+
+		float w = scissorRect.bottomRight.x - scissorRect.topLeft.x;
+		float h = scissorRect.bottomRight.y - scissorRect.topLeft.y;
+		glScissor( scissorRect.topLeft.x, view[3] - scissorRect.bottomRight.y, w, h );
+	}
+ 
+	void Graphics::EndScissor()
+	{
+		glDisable( GL_SCISSOR_TEST );
+	}
 }
 
 #endif

@@ -13,7 +13,7 @@ namespace Monocle
 	class Entity;
     class TextureAsset;
     class FontAsset;
-    
+    class Rect;
 	//! The type of blending to use between layers when a layer is drawn over another.
 	enum BlendType
 	{
@@ -205,6 +205,9 @@ namespace Monocle
 		static void ScreenToImage(const std::string &filename, ImageType type);
         
         static void CheckErrors();
+
+		static void BeginScissor( Monocle::Rect scissorRect );
+		static void EndScissor();
 	protected:
 		friend class Game;
 		Graphics();

@@ -15,8 +15,12 @@ function EntityUpdate(entity, dt)
 	entity:setRotation(rot + entity.speed*dt)
 end
 
-text = Text.new("Lua + Monocle = Moonocle Engine " .. version)
-text:ResetPosition(20,20)
+--text = Text.new("Lua + Monocle = Moonocle Engine " .. version)
+--text:ResetPosition(20,20)
+--gameScene:Add(text)
+
+text = Text.new("My first script")
+text:ResetPosition(20,320)
 gameScene:Add(text)
 
 text = Text.new("Author: Felipe Provenzano")

@@ -28,9 +28,12 @@ namespace Moonocle
 	{
 		Graphics::BindTexture(NULL);
 		Graphics::PushMatrix();
-		Graphics::Translate(position);
+		Graphics::Translate(position.x,position.y,0);
 		Graphics::Rotate(rotation,0,0,1.0);
         Graphics::SetColor(Color::blue);
+
+		Monocle::Vector2 vec = Monocle::Graphics::GetMatrixPosition();
+		//std::cout<<"E:"<<" "<<vec.x<<" "<<vec.y<<std::endl;
 		Graphics::RenderQuad(25, 100.0f);
 		Graphics::PopMatrix();
 

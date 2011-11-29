@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Renderers">
+      <UniqueIdentifier>{72E43676-56F4-1044-A8B7-97A5756978F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderers\OpenGL">
+      <UniqueIdentifier>{B1BB2B75-EAAA-C947-9A7F-4661D93A7B3F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderers\OpenGL\DebugFont">
+      <UniqueIdentifier>{BE6DB371-0D1A-9B4E-AE63-F0478E027AB2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Renderers\OpenGL\OpenGL.cpp">
+      <Filter>Renderers\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Renderers\OpenGL\DebugFont\OpenGL_DebugFont.cpp">
+      <Filter>Renderers\OpenGL\DebugFont</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

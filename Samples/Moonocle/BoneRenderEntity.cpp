@@ -1,5 +1,6 @@
 #include "BoneRenderEntity.h"
 
+#include "Graphics.h"
 namespace Moonocle
 {
 	BoneRender::BoneRender():root(0), tmp(0)
@@ -16,6 +17,7 @@ namespace Moonocle
 	}
 	void BoneRender::Update()
 	{
+		Graphics::IdentityMatrix();
 		Bone::Update(root, 0);
 		root->x = position.x;
 		root->y = position.y;

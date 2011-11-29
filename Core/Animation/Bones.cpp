@@ -53,12 +53,12 @@ namespace Animations
 			return;
 		}
 
-		for(int i=0;i<level; ++i)
-		{
-			std::cout<<"#";
-		}
-
-		std::cout<<" "<<root->x <<" "<< root->y << " " << root->angle << " " << root->length << std::endl;
+//		for(int i=0;i<level; ++i)
+//		{
+//			std::cout<<"#";
+//		}
+//
+//		std::cout<<" "<<root->x <<" "<< root->y << " " << root->angle << " " << root->length << std::endl;
 
 		for(int i=0; i < root->childCount; ++i)
 		{
@@ -84,6 +84,10 @@ namespace Animations
 		Monocle::Graphics::EndLine();
 		
 		Monocle::Graphics::Translate(root->length,0,0);
+
+		Monocle::Vector2 vec = Monocle::Graphics::GetMatrixPosition();
+		//std::cout<<"R:"<<" "<<vec.x<<" "<<vec.y<<std::endl;
+
 		for(int i =0; i < root->childCount;i++)
 			Render(root->childs[i]);
 
@@ -106,7 +110,8 @@ namespace Animations
 		root->yAbs = vec.y;
 		root->angleAbs = angle + root->angle;
 
-		
+		//std::cout<<"U:"<<" "<<vec.x<<" "<<vec.y<<std::endl;
+
 		for(int i=0; i< root->childCount;i++)
 			Update(root->childs[i],  root->angleAbs);
 
