@@ -39,7 +39,7 @@ namespace Moonocle
 		levelEditor = new LevelEditor;
 
 		Add(levelEditor);
-		Graphics::SetBackgroundColor(Color::blue*0.1f + Color::black*0.9f);
+		Graphics::SetBackgroundColor(Color::blue*0.2f + Color::white*0.8);
 
 		boneRender = new BoneRender;
 		Add(boneRender);

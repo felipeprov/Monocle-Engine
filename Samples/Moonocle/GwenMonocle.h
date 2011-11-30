@@ -36,6 +36,8 @@ namespace Monocle
             virtual void RenderText( Gwen::Font *pFont, Gwen::Point pos, const Gwen::UnicodeString& text );
 
             virtual Gwen::Point MeasureText( Gwen::Font *pFont, const Gwen::UnicodeString& text );
+			Gwen::Color PixelColour( Gwen::Texture* pTexture, unsigned int x, unsigned int y, const Gwen::Color& col_default = Gwen::Color( 255, 255, 255, 255 ) );
+
         };
     }
 }
