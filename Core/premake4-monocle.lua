@@ -3,6 +3,7 @@ project "MonocleCore"
 	kind "StaticLib"
 	language "C++"
 	
+	print("Configuring monocle core")
 	monocle_os_defines();
 	monocle_os_includedirs();
 	
@@ -21,11 +22,13 @@ project "MonocleCore"
 		files { "**.mm" }
 	
 	--links{ "TinyXML" }
-
+	
+	
 	configuration "Debug"
 		defines { "DEBUG" }
 		flags { "Symbols" }
 		targetsuffix "Debug"
+		
 
 	configuration "Release"
 		defines { "NDEBUG" }

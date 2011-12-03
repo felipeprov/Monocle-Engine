@@ -5,7 +5,7 @@
 using namespace Animations;
 using namespace Monocle;
 
-namespace Moonocle
+namespace Monocle
 {
 	class BoneRender : public Entity
 	{

@@ -1,7 +1,7 @@
 #include "BoneRenderEntity.h"
 
 #include "Graphics.h"
-namespace Moonocle
+namespace Monocle
 {
 	BoneRender::BoneRender():root(0), tmp(0)
 	{

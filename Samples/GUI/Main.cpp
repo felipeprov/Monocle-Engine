@@ -1,7 +1,6 @@
 #include "Monocle.h"
-//#include "Pong.h"
 #include <Lua/LuaEnvironment.h>
-#include "MoonocleGameScene.h"
+#include "GuiGameScene.h"
 
 
 
@@ -13,7 +12,7 @@ int main(void)
 {
 	/* Declare a Lua State, open the Lua State and load the libraries (see above). */
 
-	Game *game = new Game("Monocle with Lua",800,600);
+	Game *game = new Game("Testing Gwen",800,600);
 	game->SetScene(new Moonocle::GameScene());
 	game->Main();
 

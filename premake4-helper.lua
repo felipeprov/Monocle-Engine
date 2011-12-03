@@ -59,7 +59,11 @@ end
 function monocle_os_includedirs()
 	-- needs to be called once in a project
 	includedirs{ _MONOCLE_INCLUDE,_MONOCLE_EXTLIB_BASE }
+	monocle_extlib("Lua")
+	monocle_extlib("gwen/include")
+	
 	libdirs { (_MONOCLE_EXTLIB_LIB_INC.."/"..monocle_get_os_lib_dir()) }
+	
 end
 
 -- helper function to include header / library paths and link libraries by os
@@ -76,9 +80,10 @@ function monocle_os_links_base()
 	monocle_extlib("glew")
 	monocle_extlib("openal")
 	monocle_extlib("TinyXML")
+	links{"lua","gwend_static"}
 	
 	if os.is( "windows" ) == true then
-		links {"Winmm", "glew32s", "opengl32", "glu32", "openal32","lua"}
+		links {"Winmm", "glew32s", "opengl32", "glu32", "openal32"}
 	elseif os.is( "linux" ) == true then
 		links { "X11","GLEW","GL","GLU","openal" }
 	elseif os.is( "macosx" ) == true then

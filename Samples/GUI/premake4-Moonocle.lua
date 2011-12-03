@@ -9,6 +9,7 @@
 		monocle_os_links()
 
 		--Links lua
+		links
 		
 		print("Hi mon, i am compiling! " .. _OPTIONS["testapp"].."/**.h" )
 		files {"../" .. _OPTIONS["testapp"].."/**.h", "../" .. _OPTIONS["testapp"].."/**.cpp" }

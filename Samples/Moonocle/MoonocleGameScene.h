@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Monocle.h>
-#include "LuaEnvironment.h"
+#include <Lua/LuaEnvironment.h>
 #include "LevelEditor\LevelEditor.h"
-#include "BoneRenderEntity.h"
+#include <Animation/BoneRenderEntity.h>
 
 using namespace Monocle;
 
@@ -11,10 +11,10 @@ namespace Moonocle
 {
 	class GameScene: public Scene
 	{
-		LuaEnvironment* lEnv;
+		Lua::LuaEnvironment* lEnv;
 		LevelEditor* levelEditor;
 		BoneRender *boneRender;
-		LuaEntity *testeEntity;
+		Lua::LuaEntity *testeEntity;
 	public:
 		void Begin();
 		void End();

@@ -15,23 +15,26 @@ extern "C" {
                  lua_tostring(L, -1));\
 			 exit(1);\
 		}
-namespace Moonocle
+namespace Monocle
 {
-	class LuaEnvironment
+	namespace Lua
 	{
-	private:
-		lua_State *L;
-		static LuaEnvironment* luaenv;
-		LuaEnvironment();
-	public:
-		~LuaEnvironment();
-		lua_State* getLuaState(){return L;}
-		void init();
-		void loadFile(char* s);
-		void pushFunction(lua_CFunction f);
-		void callLuaFunction(char *s);
-		static LuaEnvironment* getLuaEnv();
+		class LuaEnvironment
+		{
+		private:
+			lua_State *L;
+			static LuaEnvironment* luaenv;
+			LuaEnvironment();
+		public:
+			~LuaEnvironment();
+			lua_State* getLuaState(){return L;}
+			void init();
+			void loadFile(char* s);
+			void pushFunction(lua_CFunction f);
+			void callLuaFunction(char *s);
+			static LuaEnvironment* getLuaEnv();
 
-		void luaCallback(const char *function, LuaEntity* obj, char *type);
-	};
+			void luaCallback(const char *function, LuaEntity* obj, char *type);
+		};
+	}
 }
