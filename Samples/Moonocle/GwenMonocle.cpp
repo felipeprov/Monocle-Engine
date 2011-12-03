@@ -19,16 +19,11 @@ namespace Monocle
 
 		void GwenRenderer::Begin() 
 		{
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-                        glAlphaFunc( GL_GREATER, 1.0f );        
-                        glEnable ( GL_BLEND );
-
 		}
 		void GwenRenderer::End() {}
 
 		void GwenRenderer::SetDrawColor( Gwen::Color color )
 		{
-			//glColor4ubv( GLubyte*)&color );
 			Monocle::Graphics::SetColor( Monocle::Color(color.r/255.f, color.g/255.f, color.b/255.f, color.a/255.f) );
 		}
 
@@ -43,15 +38,19 @@ namespace Monocle
 		{
 
 			Translate(rect);
+			Graphics::PushMatrix();
 			Monocle::Graphics::BindTexture(NULL);
+			Graphics::SetBlend(BLEND_ALPHA);
+			Graphics::IdentityMatrix();
 			Monocle::Graphics::RenderQuad(rect.w,rect.h,Vector2(0,0),Vector2::one,Vector2(rect.x+rect.w/2,rect.y+rect.h/2));
-			//Monocle::Graphics::RenderQuad( rect.w, rect.h, Monocle::Vector2::zero, Monocle::Vector2::one, Monocle::Vector2( rect.x + (rect.w/2), rect.y + (rect.h / 2) ) );
+
+			Graphics::PopMatrix();
 		}
 
 		void GwenRenderer::LoadTexture( Gwen::Texture *pTexture )
 		{
 			std::cout << "[GwenRenderer] LoadTexture" << std::endl;
-			Monocle::TextureAsset *tex = Monocle::Assets::RequestTexture( pTexture->name.Get() );
+			Monocle::TextureAsset *tex = Monocle::Assets::RequestTexture( pTexture->name.Get(),FILTER_LINEAR );
 
 			if(tex)
 			{
@@ -83,7 +82,7 @@ namespace Monocle
 
 			pFont->data = Monocle::Assets::RequestFont( filename, pFont->realsize );
 
-			if(!pFont->data) pFont->data =  Assets::RequestFont("AudioTest/LiberationSans-Regular.ttf", 12);
+			if(!pFont->data) pFont->data =  Assets::RequestFont("micross.ttf", 15);
 		}
 
 		void GwenRenderer::FreeFont( Gwen::Font *pFont )
@@ -124,84 +123,52 @@ namespace Monocle
 		void GwenRenderer::StartClip()
 		{
 			Gwen::Rect rect = ClipRegion();
-
-            // OpenGL's coords are from the bottom left
-            // so we need to translate them here.
-            {
-                    GLint view[4];
-                    glGetIntegerv( GL_VIEWPORT, &view[0] );
-                    rect.y = view[3] - (rect.y + rect.h);
-            }
-
-            glScissor( rect.x * Scale(), rect.y * Scale(), rect.w * Scale(), rect.h * Scale() );
-            glEnable( GL_SCISSOR_TEST );
-               
+			Graphics::BeginScissor(Rect(Vector2(rect.x-1,rect.y-1),Vector2(rect.x+rect.w+1,rect.y+rect.h+1)));               
 		}
 
 		void GwenRenderer::EndClip()
 		{
-			//Flush();
-          //   Monocle::Graphics::EndScissor();
-			 glDisable( GL_SCISSOR_TEST );
-
+             Monocle::Graphics::EndScissor();
 		}
 
 		void GwenRenderer::DrawTexturedRect(Gwen::Texture *tex, Gwen::Rect rect, float u1, float v1, float u2, float v2)
 		{
-			//Graphics::PushMatrix();
-			Graphics::IdentityMatrix();
-			TextureAsset *data = (TextureAsset*)tex->data;
 			Translate(rect);
+			Graphics::PushMatrix();
+			TextureAsset *data = (TextureAsset*)tex->data;
 			Monocle::Graphics::BindTexture( data );
-			rect.w+=1;
-			rect.h+=1;
-			//Monocle::Graphics::RenderQuad( Rect(rect.x, rect.y, rect.w, rect.h), Rect( u1,v1, u2-u1, v2-v1) );
-			Monocle::Graphics::RenderQuad( rect.w, rect.h, Vector2(u1,v1), Vector2(u2-u1,v2-v1), Monocle::Vector2( rect.x + (rect.w / 2), rect.y + (rect.h / 2)) );
-			//Graphics::PopMatrix();
+			Graphics::IdentityMatrix();
+		
+			Monocle::Graphics::RenderQuad( rect.w, rect.h, Vector2(u1,v1), Vector2((u2-u1),(v2-v1)), Monocle::Vector2( rect.x + (rect.w / 2), rect.y + (rect.h / 2)) );
+			Graphics::PopMatrix();
 		}
 
 		 Gwen::Color GwenRenderer::PixelColour( Gwen::Texture* pTexture, unsigned int x, unsigned int y, const Gwen::Color& col_default )
-                {
-                        GLuint* tex = (GLuint*)pTexture->data;
-                        if ( !tex ) return col_default;
+        {
+			TextureAsset *pdata = (TextureAsset*)pTexture->data;
 
-                        unsigned int iPixelSize = sizeof(unsigned char) * 4;
+			unsigned char *data = pdata->ReadRect(Vector2(x,y), Vector2(1,1));
+           
+			Gwen::Color c;
+			c.r = data[0];
+			c.g = data[1];
+			c.b = data[2];
+			c.a = data[3];
 
-                        glBindTexture( GL_TEXTURE_2D, *tex );
-
-                        unsigned char* data = (unsigned char*) malloc( iPixelSize * pTexture->width * pTexture->height );
-
-                                glGetTexImage( GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-                                unsigned int iOffset = (y * pTexture->width + x) * 4;
-
-                                Gwen::Color c;
-                                c.r = data[0 + iOffset];
-                                c.g = data[1 + iOffset];
-                                c.b = data[2 + iOffset];
-                                c.a = data[3 + iOffset];
-
-                        //
-                        // Retrieving the entire texture for a single pixel read
-                        // is kind of a waste - maybe cache this pointer in the texture
-                        // data and then release later on? It's never called during runtime
-                        // - only during initialization.
-                        //
-                        free( data );
-
-                        return c;
-                }
+            return c;
+        }
 
 
 		void GwenRenderer::RenderText( Gwen::Font *font, Gwen::Point pos, const Gwen::UnicodeString& text )
 		{
+			Translate(pos.x, pos.y);
+			Color color = Graphics::GetCurrentColor();
+
 			if(!font->data || std::fabs( font->realsize - font->size * Scale()) > 2)
 			{
 				FreeFont(font);
 				LoadFont(font);
 			}
-
-			Translate(pos.x, pos.y);
 
 #pragma warning NOT SAFE!
 			std::string txt;
@@ -212,21 +179,14 @@ namespace Monocle
 				f = (FontAsset *)font->data;
 			else
 				f = Assets::RequestFont("AudioTest/LiberationSans-Regular.ttf", 11);
-
-			Monocle::Graphics::SetColor(Monocle::Color::black);
-		//	Monocle::Graphics::SetBlend(Monocle::BLEND_ALPHA);
-			Monocle::Graphics::BindFont((FontAsset*)font->data);
-			Monocle::Graphics::RenderText( *f, txt, (float)pos.x, (float)pos.y + f->GetTextHeight(txt) );
 			
-	//		Graphics::PushMatrix();
-	//		Graphics::IdentityMatrix();
-	//		Graphics::Translate( (float)pos.x, (float)pos.y + f->GetTextHeight(txt),0);
-	//		Graphics::SetBlend(BLEND_ALPHA);
-	////		Graphics::SetColor(Color::black);
-	//		Graphics::BindFont(f);
+			Graphics::PushMatrix();
+			Graphics::IdentityMatrix();
 
-	//		Graphics::RenderText(*f, txt, 0, 0);
-	//		Graphics::PopMatrix();
+			Graphics::BindFont(f);
+
+			Graphics::RenderText(*f, txt, pos.x, pos.y +f->GetTextHeight(txt)-1);
+			Graphics::PopMatrix();
 		}
 	}
 }

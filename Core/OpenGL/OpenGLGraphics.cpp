@@ -363,6 +363,9 @@ namespace Monocle
 		float halfWidth = width*0.5f;
 		float halfHeight = height*0.5f;
 
+		halfWidth=  ceil(halfWidth);
+		halfHeight = ceil(halfHeight);
+
 		glBegin(GL_QUADS);
 			// UL
 			glTexCoord2f(textureOffset.x, textureOffset.y);

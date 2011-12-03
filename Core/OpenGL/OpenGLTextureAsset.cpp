@@ -112,7 +112,7 @@ namespace Monocle
 		if (filter == FILTER_LINEAR)
 		{
 			glMagFilter = GL_LINEAR;
-			glMinFilter = GL_LINEAR_MIPMAP_LINEAR;
+			glMinFilter = GL_LINEAR;//GL_LINEAR_MIPMAP_LINEAR;
 		}
  
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glMagFilter);

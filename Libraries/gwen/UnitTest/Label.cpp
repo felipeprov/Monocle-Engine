@@ -72,7 +72,7 @@ class Label : public GUnit
 			// Note that when using a custom font, this font object has to stick around
 			// for the lifetime of the label. Rethink, or is that ideal?
 			//
-			m_Font.facename = L"Comic Sans MS";
+			m_Font.facename = L"comic.ttf";
 			m_Font.size = 25;
 
 			Gwen::Controls::Label* label = new Gwen::Controls::Label( this );

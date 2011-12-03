@@ -166,6 +166,7 @@ namespace Monocle
 		//! also set.
 		//! \param color The color to set to
 		static void SetColor(const Color &color);
+		static Color GetCurrentColor(){return instance->currentColor;}
 		//! \brief Changes the absolute background color of the renderer.
 		//! The color passed to this function will be the color of the window in areas which are not covered
 		//! by any other rendered items.
